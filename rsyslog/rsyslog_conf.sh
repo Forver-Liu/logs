@@ -17,6 +17,10 @@ if [ ! -f $inif_file ];then
 	exit 1
 fi
 
+yum install -y rsyslog-gnutls
+mkdir /etc/rsyslog.d/tls/
+#scp ca.crt /etc/rsyslog.d/tls/ca.crt
+
 mv $config ${config}-ori
 cat >> $config << EOF
 #### MODULES ####
@@ -28,6 +32,11 @@ cat >> $config << EOF
 \$MaxMessageSize 256k
 
 #### GLOBAL DIRECTIVES ####
+#\$DefaultNetstreamDriver gtls
+#\$ActionSendStreamDriverMode 1
+#\$ActionSendStreamDriverAuthMode anon
+#\$DefaultNetstreamDriverCAFile /etc/rsyslog.d/tls/ca.crt
+
 \$ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat
 \$WorkDirectory /var/lib/rsyslog
 \$IncludeConfig /etc/rsyslog.d/*.conf
