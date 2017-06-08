@@ -10,7 +10,7 @@ function add_sys() {
 
     emerg=24
     if [ ${#server_name} -gt $emerg ];then
-	server_name=`echo ${server_name:0:32}`
+		server_name=`echo ${server_name:0:24}`
     fi
     
     if [ -n $server_name ];then
