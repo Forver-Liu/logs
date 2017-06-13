@@ -9,5 +9,6 @@ do
 	echo $file
 	newfile=`echo $file|sed s/\.log$/-${yesday}\.log/g`
 	echo "NEW file:$newfile"
-#	mv $logs $newfile
+	mv $file $newfile
+	[ $? -ne 0 ] && echo "replace $file failed,need check"
 done
