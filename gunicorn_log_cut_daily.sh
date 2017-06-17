@@ -47,7 +47,8 @@ do
 
 	if [ $todo -eq 1 ];then
 		echo "RESTARTING:$cmd"
-		kill -15 $pid
+#		kill -15 $pid
+		ps aux|grep "$cmd"|grep -v grep|awk '{print $2}'|xargs kill -9
 		sleep 3
 		eval $cmd
 		[ $? -ne 0 ]&& echo "restart failed,need check"
